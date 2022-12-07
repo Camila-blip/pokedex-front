@@ -18,7 +18,7 @@ export default function SignUp() {
         e.preventDefault();
         if(nome && email  && telefone  && password ){
             console.log(nome,email,telefone,password);
-            signUp(nome,email,telefone,password);
+            signUp(nome,telefone,email,password);
         }
     }
 

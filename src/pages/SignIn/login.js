@@ -7,3 +7,10 @@ display: flex;
 flex-direction: column;
 gap: 15px;
 `;
+
+export const Input = styled.input`
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+`;

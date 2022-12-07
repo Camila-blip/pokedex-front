@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from "../../Assets/logo.png";
+import logo from "../../Assets/logo.svg";
 
 export const Painel = styled.div`
     display: flex;

@@ -1,14 +1,20 @@
 import "react-toastify/dist/ReactToastify.css";
-import Rotas from "./rotas";
+import {BrowserRouter} from "react-router-dom";
+import Routes from "./routes";
 import AuthProvider  from "./contexts/auth";
+import PokemonProvider  from "./contexts/pokemon";
 import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
-        <AuthProvider>
-            <ToastContainer autoClose={3000}/>
-            <Rotas/>
-        </AuthProvider>
+        <PokemonProvider>
+            <AuthProvider>
+                <BrowserRouter>
+                    <Routes/>
+                    <ToastContainer autoClose={3000}/>
+                </BrowserRouter>
+            </AuthProvider>
+        </PokemonProvider>
     );
 }
 
