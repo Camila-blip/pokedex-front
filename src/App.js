@@ -7,14 +7,15 @@ import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
-        <PokemonProvider>
-            <AuthProvider>
+        <AuthProvider>
+            <PokemonProvider>
                 <BrowserRouter>
                     <Routes/>
                     <ToastContainer autoClose={3000}/>
                 </BrowserRouter>
-            </AuthProvider>
-        </PokemonProvider>
+            </PokemonProvider>
+
+        </AuthProvider>
     );
 }
 
