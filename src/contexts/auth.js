@@ -7,20 +7,16 @@ export const AuthContent = createContext({});
 function AuthProvider({ children }){
     const [user, setUser] = useState(null);
     const [loadingAuth, setLoadingAuth] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(()=>{
         function loadStorage(){
             const storageUser = localStorage.getItem("User");
             const storageToken = localStorage.getItem("Token");
-            if(storageUser && storageToken){
-                api.defaults.headers.Authorization = `Bearer ${JSON.parse(storageToken)}`;
-                setUser(JSON.parse(storageUser));
-                setLoading(false);
-            }
-            setLoading(false);
 
+            if(storageUser && storageToken){
+                setUser(JSON.parse(storageUser));
+            }
         }
         loadStorage();
     }, []);
@@ -42,16 +38,14 @@ function AuthProvider({ children }){
                     }else if(!isMatch){
                         toast.error("Senha incorreta!");
                     }else{
-                        toast.success("Bem vindo a plataforma!");
                         setUser(data);
                         storageUser(data, data.data.token);
                         setAuthenticated(true);
+                        window.location = "/home";
                         console.log(data);
                     }
                 });
-
             }
-
         }
         catch(error){
             console.log(error);
@@ -60,7 +54,6 @@ function AuthProvider({ children }){
         finally{
             setLoadingAuth(false);
         }
-
     }
 
     //cadastro
@@ -78,7 +71,7 @@ function AuthProvider({ children }){
             console.log(data);
             setUser(data);
             storageUser(data,data.data.token);
-            toast.success("Bem vindo a plataforma!");
+            window.location = "/home";
         }
         catch(err){
             console.log(err);
@@ -87,7 +80,6 @@ function AuthProvider({ children }){
         finally{
             setLoadingAuth(false);
         }
-
     }
     //logout
     async function signOut(){
@@ -99,11 +91,11 @@ function AuthProvider({ children }){
 
     function storageUser(data,token){
         localStorage.setItem("User", JSON.stringify(data));
-        localStorage.setItem("Token", JSON.stringify(token));
+        localStorage.setItem("Token", (token));
     }
 
     return(
-        <AuthContent.Provider value={{signed: !!user, user, authenticated, signIn, loadingAuth, setUser,loading,setLoadingAuth,signOut,signUp}}>
+        <AuthContent.Provider value={{signed: !!user, user, authenticated, signIn, loadingAuth, setUser,setLoadingAuth,signOut,signUp}}>
             {children}
         </AuthContent.Provider>
     );

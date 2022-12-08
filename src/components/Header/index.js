@@ -6,14 +6,21 @@ import { PokemonContent } from "../../contexts/pokemon";
 
 export default function Header(){
     const { signOut } = useContext(AuthContent);
-    const { setPage } = useContext(PokemonContent);
+    const { setPage, setPokemons } = useContext(PokemonContent);
+
+    function Logout(){
+        signOut();
+        setPokemons(null);
+        setPage(0);
+    }
+
     return(
         <Head>
             <Div>
                 <img src={Logo} alt="FastProBR" />
             </Div>
             <Div>
-                <button type="button" onClick={()=> {signOut(), setPage(0);}}>Sign out</button>
+                <button type="button" onClick={Logout}>Sign out</button>
             </Div>
         </Head>
     );

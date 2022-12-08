@@ -11,22 +11,25 @@ function PokemonProvider({ children }){
     const [loadingPokemon, setLoadingPokemon] = useState(false);
 
     useEffect(()=>{
-        (async()=>{
-            try{
-                setLoadingPokemon(true);
-                const pokemon = await api.get(`pokemon/${page}/${itemsPerPage}`);
-                setPokemons(pokemon.data);
-            }catch(err){
-                console.log("err",err);
-            }
-            finally{
-                setLoadingPokemon(false);
-            }
-        })();
+        const token = localStorage.getItem("Token");
+        if (token){
+            (async()=>{
+                try{
+                    setLoadingPokemon(true);
+                    const pokemon = await api.get(`pokemon/${page}/${itemsPerPage}`);
+                    setPokemons(pokemon.data);
+                }catch(err){
+                    console.log("err",err);
+                }
+                finally{
+                    setLoadingPokemon(false);
+                }
+            })();
+        }
     }, [page]);
 
     return(
-        <PokemonContent.Provider value={{totalPages,loadingPokemon,page,pokemons,setPage,totalPokemon,setTotalPokemon,setTotalPages,setItemsPerPage}}>
+        <PokemonContent.Provider value={{totalPages,loadingPokemon,setPokemons,page,pokemons,setPage,totalPokemon,setTotalPokemon,setTotalPages,setItemsPerPage}}>
             {children}
         </PokemonContent.Provider>
     );
