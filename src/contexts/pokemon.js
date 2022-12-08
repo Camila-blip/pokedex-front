@@ -13,10 +13,8 @@ function PokemonProvider({ children }){
     useEffect(()=>{
         (async()=>{
             try{
-                console.log("page",page);
                 setLoadingPokemon(true);
                 const pokemon = await api.get(`pokemon/${page}/${itemsPerPage}`);
-                console.log("pokemon",pokemon.data);
                 setPokemons(pokemon.data);
             }catch(err){
                 console.log("err",err);
